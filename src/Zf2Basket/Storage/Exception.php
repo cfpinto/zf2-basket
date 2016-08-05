@@ -3,10 +3,10 @@
  * Created by PhpStorm.
  * User: claudiopinto
  * Date: 04/08/2016
- * Time: 16:41
+ * Time: 10:55
  */
 
-namespace Basket\Product;
+namespace Zf2Basket\Storage;
 
 
 class Exception extends \Exception

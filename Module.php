@@ -1,6 +1,6 @@
 <?php
 
-namespace Basket;
+namespace Zf2Basket;
 
 class Module
 {

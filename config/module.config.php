@@ -2,12 +2,11 @@
 return array(
     'service_manager' => array(
         'factories' => array(
-            'Basket\Storage\Adapter' => 'Basket\Storage\Factory\CookieFactory',
-            'Basket\Basket' => 'Basket\BasketFactory'
+            'Zf2Basket\Storage\Adapter' => 'Zf2Basket\Storage\Factory\CookieFactory',
+            'Zf2Basket\Basket' => 'Zf2Basket\BasketFactory'
         ),
     ),
     'storage_adapter' => array(
-        //TODO: Need to include ZendFramework/Db in the dependencies
         'database' => array(
             'driver' => 'Pdo_Mysql',
             'dsn' => 'mysql:dbname=paug;host=localhost',

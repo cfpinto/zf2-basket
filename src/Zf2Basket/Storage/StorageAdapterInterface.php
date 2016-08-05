@@ -6,7 +6,7 @@
  * Time: 09:57
  */
 
-namespace Basket\Storage;
+namespace Zf2Basket\Storage;
 
 
 interface StorageAdapterInterface

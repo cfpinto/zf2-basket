@@ -3,13 +3,13 @@
  * Created by PhpStorm.
  * User: claudiopinto
  * Date: 04/08/2016
- * Time: 10:55
+ * Time: 16:29
  */
 
-namespace Basket\Storage;
+namespace Zf2Basket\Discount;
 
 
-class Exception extends \Exception
+interface DiscountInterface
 {
-
+    
 }

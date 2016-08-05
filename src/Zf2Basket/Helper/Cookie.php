@@ -6,7 +6,7 @@
  * Time: 10:19
  */
 
-namespace Basket\Helper;
+namespace Zf2Basket\Helper;
 
 
 class Cookie

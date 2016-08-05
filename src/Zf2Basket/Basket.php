@@ -8,8 +8,8 @@
 
 namespace Basket;
 
-use Basket\Discount\DiscountInterface;
-use Basket\Product\AbstractProduct;
+use Zf2Basket\Discount\DiscountInterface;
+use Zf2Basket\Product\AbstractProduct;
 
 class Basket extends AbstractBasket {
 

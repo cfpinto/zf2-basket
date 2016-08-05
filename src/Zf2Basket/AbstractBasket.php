@@ -9,10 +9,10 @@
 namespace Basket;
 
 
-use Basket\Discount\DiscountInterface;
-use Basket\Product\AbstractProduct;
-use Basket\Storage\Container;
-use Basket\Storage\StorageAdapterInterface;
+use Zf2Basket\Discount\DiscountInterface;
+use Zf2Basket\Product\AbstractProduct;
+use Zf2Basket\Storage\Container;
+use Zf2Basket\Storage\StorageAdapterInterface;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;

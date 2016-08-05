@@ -3,17 +3,17 @@
  * Created by PhpStorm.
  * User: claudiopinto
  * Date: 04/08/2016
- * Time: 17:30
+ * Time: 17:29
  */
 
-namespace Basket\Storage\Factory;
+namespace Basket;
 
 
-use Basket\Storage\Adapter\Cookie;
+use Zf2Basket\Storage\Container;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class CookieFactory implements FactoryInterface
+class BasketFactory implements FactoryInterface
 {
 
     /**
@@ -25,7 +25,9 @@ class CookieFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $config = $serviceLocator->get('config');
-        return new Cookie(session_name(), $config['storage_adapter']['cookie']);
+        $basket = new Basket($serviceLocator->get('Zf2Basket\Storage\Adapter'), new Container());
+        $basket->setServiceLocator($serviceLocator);
+        $basket->setEventManager($serviceLocator->get('EventManager'));
+        return $basket;
     }
 }

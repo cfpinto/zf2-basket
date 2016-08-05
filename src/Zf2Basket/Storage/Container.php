@@ -6,7 +6,7 @@
  * Time: 11:31
  */
 
-namespace Basket\Storage;
+namespace Zf2Basket\Storage;
 
 
 class Container implements \Serializable, \JsonSerializable

@@ -6,11 +6,11 @@
  * Time: 10:14
  */
 
-namespace Basket\Storage\Adapter;
+namespace Zf2Basket\Storage\Adapter;
 
 
-use Basket\Storage\Container;
-use Basket\Storage\StorageAdapterInterface;
+use Zf2Basket\Storage\Container;
+use Zf2Basket\Storage\StorageAdapterInterface;
 
 class Database implements StorageAdapterInterface
 {

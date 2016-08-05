@@ -6,13 +6,13 @@
  * Time: 10:15
  */
 
-namespace Basket\Storage\Adapter;
+namespace Zf2Basket\Storage\Adapter;
 
 
-use Basket\Storage\Container;
-use Basket\Storage\Exception;
-use Basket\Storage\StorageAdapterInterface;
-use Basket\Helper\Cookie as CookieHelper;
+use Zf2Basket\Storage\Container;
+use Zf2Basket\Storage\Exception;
+use Zf2Basket\Storage\StorageAdapterInterface;
+use Zf2Basket\Helper\Cookie as CookieHelper;
 
 class Cookie implements StorageAdapterInterface
 {

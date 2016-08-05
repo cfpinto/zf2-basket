@@ -6,11 +6,11 @@
  * Time: 17:30
  */
 
-namespace Basket\Storage\Factory;
+namespace Zf2Basket\Storage\Factory;
 
 
-use Basket\Storage\Adapter\Cookie;
-use Basket\Storage\Adapter\Database;
+use Zf2Basket\Storage\Adapter\Cookie;
+use Zf2Basket\Storage\Adapter\Database;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 

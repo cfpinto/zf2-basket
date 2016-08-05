@@ -6,7 +6,7 @@
  * Time: 16:28
  */
 
-namespace Basket\Product;
+namespace Zf2Basket\Product;
 
 
 abstract class AbstractProduct implements \ArrayAccess, \Countable
