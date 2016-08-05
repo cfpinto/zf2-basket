@@ -2,20 +2,18 @@
     "name": "cfpinto/zf2-basket",
     "description": "",
     "type": "library",
-    "license": "MIT",
-    "version": "0.1",
-    "authors": [
-        {
-            "name": "Claudio Pinto",
-            "email": "me@cfpinto.com"
-        }
-    ],
     "keywords": [
         "shopping-cart",
         "shopping-basket",
         "zf2"
     ],
     "homepage": "https://github.com/cfpinto/zf2-basket",
+    "authors": [
+        {
+            "name": "Claudio Pinto",
+            "email": "me@cfpinto.com"
+        }
+    ],
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.4.0",
