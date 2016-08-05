@@ -13,11 +13,26 @@ interface StorageAdapterInterface
 {
     const CONFIG_NAME = 'name';
 
+    /**
+     * StorageAdapterInterface constructor.
+     * @param $identity the unique identifier
+     * @param $config and array of configurations
+     */
     function __construct($identity, $config);
 
+    /**
+     * @param Container $basketContainer
+     * @return $this
+     */
     function put(Container $basketContainer);
 
+    /**
+     * @return Container
+     */
     function pull();
 
+    /**
+     * @return this
+     */
     function delete();
 }

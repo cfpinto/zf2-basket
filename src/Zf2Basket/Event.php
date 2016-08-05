@@ -6,7 +6,7 @@
  * Time: 12:31
  */
 
-namespace Basket;
+namespace Zf2Basket;
 
 use Zend\EventManager\Event;
 

@@ -6,7 +6,7 @@
  * Time: 16:11
  */
 
-namespace Basket;
+namespace Zf2Basket;
 
 use Zf2Basket\Discount\DiscountInterface;
 use Zf2Basket\Product\AbstractProduct;
@@ -22,7 +22,9 @@ class Basket extends AbstractBasket {
      */
     function addItem(AbstractProduct $item, $quantity = 1)
     {
-        $this->getContainer()->add();
+        $this->getContainer()->increment($item, abs($quantity));
+        $this->write();
+        return $this;
     }
 
     /**
@@ -33,7 +35,9 @@ class Basket extends AbstractBasket {
      */
     function removeItem(AbstractProduct $item, $quantity = 1)
     {
-        // TODO: Implement removeItem() method.
+        $this->getContainer()->increment($item, abs($quantity) * -1);
+        $this->write();
+        return $this;
     }
 
     /**
@@ -43,7 +47,7 @@ class Basket extends AbstractBasket {
      */
     function clearItem(AbstractProduct $item)
     {
-        // TODO: Implement clearItem() method.
+        return $this->removeItem($item, $this->getContainer()->count($item));
     }
 
     /**
@@ -51,7 +55,9 @@ class Basket extends AbstractBasket {
      */
     function clearItems()
     {
-        // TODO: Implement clearItems() method.
+        $this->getContainer()->clear();
+        $this->write();
+        return $this;
     }
 
     /**

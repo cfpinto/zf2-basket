@@ -9,9 +9,85 @@
 namespace Zf2Basket\Storage;
 
 
+use Zf2Basket\Product\AbstractProduct;
+
 class Container implements \Serializable, \JsonSerializable
 {
-    private $itemsJson = [];
+    const KEY_PRODUCT = 'product';
+    const KEY_QUANTITY = 'quantity';
+
+    /**
+     * @var array
+     */
+    private $items = [];
+
+    /**
+     * @param $items
+     * @return $this
+     */
+    function setItems(array $items)
+    {
+        $this->items = $items;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
+     * @param AbstractProduct $product
+     * @param int $quantity
+     * @return $this
+     */
+    function increment(AbstractProduct $product, $quantity = 1)
+    {
+        if (!isset($this->items[$product->getId()])) {
+            $this->items[$product->getId()] = [
+                self::KEY_PRODUCT => $product->toArray(),
+                self::KEY_QUANTITY => 0,
+            ];
+        }
+
+        if ($this->items[$product->getId()][self::KEY_QUANTITY] + $quantity > 0) {
+            $this->items[$product->getId()][self::KEY_QUANTITY] += $quantity;
+        } else {
+            unset($this->items[$product->getId()]);
+        }
+        return $this;
+    }
+
+    function clear()
+    {
+        $this->items = [];
+    }
+
+    /**
+     * @param AbstractProduct|null $product
+     * @return int
+     */
+    function count(AbstractProduct $product = null)
+    {
+        if (null === $product) {
+            $count = 0;
+            foreach ($this->items as $item) {
+                $count += $item[self::KEY_QUANTITY];
+            }
+
+            return $count;
+        }
+
+        if (isset($this->items[$product->getId()])) {
+            return $this->items[$product->getId()][self::KEY_QUANTITY];
+        }
+
+        return 0;
+    }
+
     /**
      * String representation of object
      * @link  http://php.net/manual/en/serializable.serialize.php
@@ -20,7 +96,7 @@ class Container implements \Serializable, \JsonSerializable
      */
     public function serialize()
     {
-        return serialize($this->itemsJson);
+        return serialize($this->items);
     }
 
     /**
@@ -36,7 +112,7 @@ class Container implements \Serializable, \JsonSerializable
      */
     public function unserialize($serialized)
     {
-        $this->itemsJson = unserialize($serialized);
+        $this->items = unserialize($serialized);
     }
 
     /**
@@ -48,6 +124,6 @@ class Container implements \Serializable, \JsonSerializable
      */
     function jsonSerialize()
     {
-        return $this->itemsJson;
+        return $this->items;
     }
 }

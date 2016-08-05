@@ -41,6 +41,10 @@ abstract class AbstractProduct implements \ArrayAccess, \Countable
         $this->offsetSet($offset, $value);
     }
 
+    public function getId() {
+        return $this->offsetGet(self::PROP_ID);
+    }
+
     /**
      * Whether a offset exists
      * @link  http://php.net/manual/en/arrayaccess.offsetexists.php
@@ -58,7 +62,7 @@ abstract class AbstractProduct implements \ArrayAccess, \Countable
      */
     final public function offsetExists($offset)
     {
-        if (!in_array($this->data[$offset])) {
+        if (!array_key_exists($offset, $this->data)) {
             throw new Exception("Invalid offset {$offset} provided.");
         }
         return true;
@@ -126,7 +130,7 @@ abstract class AbstractProduct implements \ArrayAccess, \Countable
      * The return value is cast to an integer.
      * @since 5.1.0
      */
-    public function count()
+    final public function count()
     {
         return count($this->data);
     }

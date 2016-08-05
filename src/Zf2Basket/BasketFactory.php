@@ -6,7 +6,7 @@
  * Time: 17:29
  */
 
-namespace Basket;
+namespace Zf2Basket;
 
 
 use Zf2Basket\Storage\Container;

@@ -43,7 +43,7 @@ class Cookie implements StorageAdapterInterface
 
     function pull()
     {
-        return CookieHelper::get($this->getCookieName());
+        return unserialize(CookieHelper::get($this->getCookieName(), serialize(new Container())));
     }
 
     function delete()

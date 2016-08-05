@@ -6,7 +6,7 @@
  * Time: 16:13
  */
 
-namespace Basket;
+namespace Zf2Basket;
 
 
 use Zf2Basket\Discount\DiscountInterface;
@@ -111,7 +111,7 @@ abstract class AbstractBasket implements EventManagerAwareInterface, ServiceLoca
      */
     public function init()
     {
-        $this->container->populate($this->adapter->pull());
+        $this->read();
     }
 
     /**
@@ -127,7 +127,7 @@ abstract class AbstractBasket implements EventManagerAwareInterface, ServiceLoca
      */
     final protected function read()
     {
-        $this->container = $this->adapter->pull();
+        $this->container->setItems($this->adapter->pull()->getItems());
     }
 
     /**
@@ -135,6 +135,7 @@ abstract class AbstractBasket implements EventManagerAwareInterface, ServiceLoca
      */
     final protected function delete()
     {
+        $this->container->clear();
         $this->adapter->delete();
     }
 
