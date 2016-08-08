@@ -8,12 +8,13 @@
 
 namespace Zf2Basket;
 
+use Zf2Basket\Administration\AdministrationInterface;
 use Zf2Basket\Discount\DiscountInterface;
 use Zf2Basket\Product\AbstractProduct;
+use Zf2Basket\Storage\Container;
 
-class Basket extends AbstractBasket {
-
-
+class Basket extends AbstractBasket
+{
     /**
      * @param AbstractProduct $item
      * @param int             $quantity
@@ -22,6 +23,9 @@ class Basket extends AbstractBasket {
      */
     function addItem(AbstractProduct $item, $quantity = 1)
     {
+        if ($item->isTaxable() && !$item->hasOwnTax()) {
+            $item->setTax($this->getAdministration()->getTax());
+        }
         $this->getContainer()->increment($item, abs($quantity));
         $this->write();
         return $this;
@@ -56,7 +60,6 @@ class Basket extends AbstractBasket {
     function clearItems()
     {
         $this->getContainer()->clear();
-        $this->write();
         return $this;
     }
 
@@ -67,7 +70,9 @@ class Basket extends AbstractBasket {
      */
     function addDiscount(DiscountInterface $discount)
     {
-        // TODO: Implement addDiscount() method.
+        $this->getContainer()->addDiscount($discount);
+        $this->write();
+        return $this;
     }
 
     /**
@@ -77,7 +82,9 @@ class Basket extends AbstractBasket {
      */
     function removeDiscount(DiscountInterface $discount)
     {
-        // TODO: Implement removeDiscount() method.
+        $this->getContainer()->removeDiscount($discount);
+        $this->write();
+        return $this;
     }
 
     /**
@@ -85,6 +92,84 @@ class Basket extends AbstractBasket {
      */
     function clearDiscounts()
     {
-        // TODO: Implement clearDiscounts() method.
+        $this->getContainer()->setDiscounts([]);
+        $this->write();
+        return $this;
+    }
+
+    /**
+     * @param AdministrationInterface $administration
+     *
+     * @return $this
+     */
+    function setAdministration(AdministrationInterface $administration)
+    {
+        $this->administration = $administration;
+        return $this;
+    }
+
+    /**
+     * @return AdministrationInterface
+     */
+    function getAdministration()
+    {
+        return $this->administration;
+    }
+
+    /**
+     * @return float
+     */
+    function getTotal()
+    {
+        $value = 0.00;
+        foreach ($this->getContainer()->getItems() as $item) {
+            $value += $item[Container::KEY_PRODUCT_OBJECT]->price;
+        }
+        return $value;
+    }
+
+    /**
+     * @return float
+     */
+    function getTotalTax()
+    {
+        $value = 0.00;
+        foreach ($this->getContainer()->getItems() as $item) {
+            $value += $item[Container::KEY_PRODUCT_OBJECT]->priceTax;
+        }
+        return $value;
+    }
+
+    /**
+     * @return float
+     */
+    function getTotalDiscounted()
+    {
+        if (count($this->getContainer()->getDiscounts())) {
+            $value = 0.00;
+            foreach ($this->getContainer()->getItems() as $item) {
+                /** @var AbstractProduct $obj */
+                $obj = $item[Container::KEY_PRODUCT_OBJECT];
+                /** @var DiscountInterface $discount */
+                foreach ($this->getContainer()->getDiscounts() as $discount) {
+                    if ($discount->isValid($obj, $this)) {
+                        $value += $discount->getItemPriceDiscounted($obj);
+                    } else {
+                        $value += $obj->price;
+                    }
+                }
+            }
+            return $value;
+        }
+
+        return $this->getTotal();
+    }
+
+    /**
+     * @return float
+     */
+    function getTotalDiscount()
+    {
+        return $this->getTotal() - $this->getTotalDiscounted();
     }
 }

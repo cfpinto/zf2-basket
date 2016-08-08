@@ -9,18 +9,14 @@
 namespace Zf2Basket;
 
 
+use Zf2Basket\Administration\AdministrationInterface;
 use Zf2Basket\Discount\DiscountInterface;
 use Zf2Basket\Product\AbstractProduct;
 use Zf2Basket\Storage\Container;
 use Zf2Basket\Storage\StorageAdapterInterface;
-use Zend\EventManager\EventManagerAwareInterface;
-use Zend\EventManager\EventManagerInterface;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
-use Zend\ServiceManager\ServiceLocatorAwareTrait;
 
-abstract class AbstractBasket implements EventManagerAwareInterface, ServiceLocatorAwareInterface
+abstract class AbstractBasket
 {
-    use ServiceLocatorAwareTrait;
     /**
      * @var StorageAdapterInterface
      */
@@ -32,9 +28,9 @@ abstract class AbstractBasket implements EventManagerAwareInterface, ServiceLoca
     private $container;
 
     /**
-     * @var EventManagerInterface
+     * @var AdministrationInterface
      */
-    private $eventManager;
+    protected $administration;
 
     /**
      * AbstractBasket constructor.
@@ -88,30 +84,12 @@ abstract class AbstractBasket implements EventManagerAwareInterface, ServiceLoca
     }
 
     /**
-     * @return EventManagerInterface
-     */
-    public function getEventManager()
-    {
-        return $this->eventManager;
-    }
-
-    /**
-     * @param EventManagerInterface $eventManager
-     *
-     * @return $this
-     */
-    public function setEventManager(EventManagerInterface $eventManager)
-    {
-        $this->eventManager = $eventManager;
-        return $this;
-    }
-
-    /**
      *
      */
     public function init()
     {
         $this->read();
+        return $this;
     }
 
     /**
@@ -128,6 +106,7 @@ abstract class AbstractBasket implements EventManagerAwareInterface, ServiceLoca
     final protected function read()
     {
         $this->container->setItems($this->adapter->pull()->getItems());
+        $this->container->setDiscounts($this->adapter->pull()->getDiscounts());
     }
 
     /**
@@ -185,5 +164,37 @@ abstract class AbstractBasket implements EventManagerAwareInterface, ServiceLoca
      * @return $this
      */
     abstract function clearDiscounts();
+
+    /**
+     * @param AdministrationInterface $administration
+     *
+     * @return $this
+     */
+    abstract function setAdministration(AdministrationInterface $administration);
+
+    /**
+     * @return AdministrationInterface
+     */
+    abstract function getAdministration();
+
+    /**
+     * @return float
+     */
+    abstract function getTotal();
+
+    /**
+     * @return float
+     */
+    abstract function getTotalTax();
+
+    /**
+     * @return float
+     */
+    abstract function getTotalDiscounted();
+
+    /**
+     * @return float
+     */
+    abstract function getTotalDiscount();
 
 }

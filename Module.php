@@ -2,6 +2,9 @@
 
 namespace Zf2Basket;
 
+use Zend\Mvc\MvcEvent;
+use Zf2Basket\BasketEvent;
+
 class Module
 {
     public function getConfig()

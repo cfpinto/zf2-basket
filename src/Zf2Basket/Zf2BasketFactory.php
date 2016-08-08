@@ -13,7 +13,7 @@ use Zf2Basket\Storage\Container;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class BasketFactory implements FactoryInterface
+class Zf2BasketFactory implements FactoryInterface
 {
 
     /**
@@ -25,7 +25,7 @@ class BasketFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $basket = new Basket($serviceLocator->get('Zf2Basket\Storage\Adapter'), new Container());
+        $basket = new Zf2Basket($serviceLocator->get('Zf2Basket\Storage\Adapter'), new Container());
         $basket->setServiceLocator($serviceLocator);
         $basket->setEventManager($serviceLocator->get('EventManager'));
         return $basket;

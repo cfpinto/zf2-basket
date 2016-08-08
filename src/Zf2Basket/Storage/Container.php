@@ -9,11 +9,13 @@
 namespace Zf2Basket\Storage;
 
 
+use Zf2Basket\Discount\DiscountInterface;
 use Zf2Basket\Product\AbstractProduct;
 
 class Container implements \Serializable, \JsonSerializable
 {
-    const KEY_PRODUCT = 'product';
+    const KEY_PRODUCT_ARRAY = 'product';
+    const KEY_PRODUCT_OBJECT = 'object_object';
     const KEY_QUANTITY = 'quantity';
 
     /**
@@ -22,7 +24,13 @@ class Container implements \Serializable, \JsonSerializable
     private $items = [];
 
     /**
+     * @var array
+     */
+    private $discounts = [];
+
+    /**
      * @param $items
+     *
      * @return $this
      */
     function setItems(array $items)
@@ -40,15 +48,35 @@ class Container implements \Serializable, \JsonSerializable
     }
 
     /**
+     * @return array
+     */
+    public function getDiscounts()
+    {
+        return $this->discounts;
+    }
+
+    /**
+     * @param $discounts
+     *
+     * @return $this
+     */
+    public function setDiscounts($discounts)
+    {
+        $this->discounts = $discounts;
+        return $this;
+    }
+
+    /**
      * @param AbstractProduct $product
-     * @param int $quantity
+     * @param int             $quantity
+     *
      * @return $this
      */
     function increment(AbstractProduct $product, $quantity = 1)
     {
         if (!isset($this->items[$product->getId()])) {
             $this->items[$product->getId()] = [
-                self::KEY_PRODUCT => $product->toArray(),
+                self::KEY_PRODUCT_OBJECT => $product,
                 self::KEY_QUANTITY => 0,
             ];
         }
@@ -61,13 +89,56 @@ class Container implements \Serializable, \JsonSerializable
         return $this;
     }
 
+    /**
+     * @param DiscountInterface $discount
+     *
+     * @return $this
+     */
+    function addDiscount(DiscountInterface $discount)
+    {
+        if (!isset($this->discounts[$discount->getId()])) {
+            $this->discounts[$discount->getId()] = $discount;
+        }
+
+        return $this;
+
+    }
+
+    /**
+     * @param DiscountInterface $discount
+     *
+     * @return $this
+     */
+    function removeDiscount(DiscountInterface $discount)
+    {
+        if (!isset($this->discounts[$discount->getId()])) {
+            unset($this->discounts[$discount->getId()]);
+        }
+
+        return $this;
+    }
+
     function clear()
     {
         $this->items = [];
     }
 
+    function toArray()
+    {
+        $items = [];
+        foreach ($this->items as $key => $item) {
+            $items[$key] = [
+                self::KEY_PRODUCT_ARRAY => $item[self::KEY_PRODUCT_OBJECT]->toArray(),
+                self::KEY_QUANTITY => $item[self::KEY_QUANTITY],
+            ];
+        }
+
+        return $items;
+    }
+
     /**
      * @param AbstractProduct|null $product
+     *
      * @return int
      */
     function count(AbstractProduct $product = null)
@@ -96,7 +167,10 @@ class Container implements \Serializable, \JsonSerializable
      */
     public function serialize()
     {
-        return serialize($this->items);
+        return serialize([
+            'items' => $this->items,
+            'discounts' => $this->discounts,
+        ]);
     }
 
     /**
@@ -112,7 +186,9 @@ class Container implements \Serializable, \JsonSerializable
      */
     public function unserialize($serialized)
     {
-        $this->items = unserialize($serialized);
+        $data = unserialize($serialized);
+        $this->setItems($data['items']);
+        $this->setDiscounts($data['discounts']);
     }
 
     /**
@@ -124,6 +200,6 @@ class Container implements \Serializable, \JsonSerializable
      */
     function jsonSerialize()
     {
-        return $this->items;
+        return $this->toArray();
     }
 }

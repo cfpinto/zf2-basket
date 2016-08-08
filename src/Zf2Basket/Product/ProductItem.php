@@ -12,4 +12,19 @@ namespace Zf2Basket\Product;
 class ProductItem extends AbstractProduct
 {
 
+    /**
+     * @return boolean
+     */
+    public function isTaxable()
+    {
+        return true;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function hasOwnTax()
+    {
+        return ($this->getTax() !== null);
+    }
 }

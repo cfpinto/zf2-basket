@@ -3,7 +3,7 @@ return array(
     'service_manager' => array(
         'factories' => array(
             'Zf2Basket\Storage\Adapter' => 'Zf2Basket\Storage\Factory\CookieFactory',
-            'Zf2Basket\Basket' => 'Zf2Basket\BasketFactory'
+            'Zf2Basket\Zf2Basket' => 'Zf2Basket\Zf2BasketFactory'
         ),
     ),
     'storage_adapter' => array(

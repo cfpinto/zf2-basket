@@ -9,6 +9,30 @@
 namespace Zf2Basket\Product;
 
 
+use Zf2Basket\Tax\AbstractTax;
+
+/**
+ * Class AbstractProduct
+ * @package Zf2Basket\Product
+ * @method integer getId()
+ * @method string getName()
+ * @method string getBrand()
+ * @method string getCategory()
+ * @method string getVariant()
+ * @method float getPrice()
+ * @method integer getTaxRate()
+ * @method float getPriceTax()
+ * @method float getPriceNoTax()
+ * @property integer $id;
+ * @property string $name;
+ * @property string $brand;
+ * @property string $category;
+ * @property string $variant;
+ * @property float $price;
+ * @property int $taxRate;
+ * @property float $priceNoTax;
+ * @property float $priceTax;
+ */
 abstract class AbstractProduct implements \ArrayAccess, \Countable
 {
     const PROP_ID = 'id';
@@ -17,8 +41,12 @@ abstract class AbstractProduct implements \ArrayAccess, \Countable
     const PROP_CATEGORY = 'category';
     const PROP_VARIANT = 'variant';
     const PROP_PRICE = 'price';
-    const PROP_QUANTITY = 'quantity';
-    const PROP_TAX_RATE = 'tax_rate';
+    const PROP_TAX_RATE = 'taxRate';
+    const PROP_PRICE_TAX = 'priceTax';
+    const PROP_PRICE_NO_TAX = 'priceNoTax';
+    const PROP_DISCOUNT = 'discount';
+    const PROP_DISCOUNT_TAX = 'discountTax';
+    const PROP_DISCOUNT_NO_TAX = 'discountNoTax';
 
     private $data = [
         self::PROP_ID => null,
@@ -27,9 +55,28 @@ abstract class AbstractProduct implements \ArrayAccess, \Countable
         self::PROP_CATEGORY => null,
         self::PROP_VARIANT => null,
         self::PROP_PRICE => null,
-        self::PROP_QUANTITY => null,
         self::PROP_TAX_RATE => null,
+        self::PROP_PRICE_TAX => null,
+        self::PROP_PRICE_NO_TAX => null,
     ];
+
+    /**
+     * @var AbstractTax
+     */
+    private $tax;
+
+    public function __call($name, $arguments)
+    {
+        if (!preg_match('#^get(.+?)$#', $name, $matches)) {
+            throw new Exception("Invalid method {$name} called.");
+        }
+
+        if ($matches[1] == self::PROP_DISCOUNT) {
+            return $this->getTotalDiscount();
+        }
+
+        return $this->offsetGet(lcfirst($matches[1]));
+    }
 
     public function __get($offset)
     {
@@ -41,8 +88,26 @@ abstract class AbstractProduct implements \ArrayAccess, \Countable
         $this->offsetSet($offset, $value);
     }
 
-    public function getId() {
-        return $this->offsetGet(self::PROP_ID);
+    /**
+     * @return AbstractTax
+     */
+    public function getTax()
+    {
+        return $this->tax;
+    }
+
+    /**
+     * @param AbstractTax $tax
+     *
+     * @return $this
+     */
+    public function setTax(AbstractTax $tax)
+    {
+        $this->tax = $tax;
+        $this->data[self::PROP_TAX_RATE] = $tax->getRate();
+        $this->data[self::PROP_PRICE_TAX] = round($this->data[self::PROP_PRICE] * $tax->getDecimal(), 2);
+        $this->data[self::PROP_PRICE_NO_TAX] = $this->data[self::PROP_PRICE] - $this->data[self::PROP_PRICE_TAX];
+        return $this;
     }
 
     /**
@@ -81,6 +146,9 @@ abstract class AbstractProduct implements \ArrayAccess, \Countable
      */
     final public function offsetGet($offset)
     {
+        if (in_array($offset, array(self::PROP_PRICE, self::PROP_PRICE_NO_TAX, self::PROP_PRICE_TAX))) {
+            return (float)$this->data[$offset];
+        }
         return $this->data[$offset];
     }
 
@@ -94,12 +162,21 @@ abstract class AbstractProduct implements \ArrayAccess, \Countable
      * @param mixed $value  <p>
      *                      The value to set.
      *                      </p>
+     * @throws Exception
      *
      * @return void
      * @since 5.0.0
      */
     final public function offsetSet($offset, $value)
     {
+        if (in_array($offset, [self::PROP_TAX_RATE, self::PROP_PRICE_NO_TAX, self::PROP_PRICE_TAX])) {
+            throw new Exception("Invalid property type {$offset}, use method addTax(Tax \$tax) to dynamically calculate tax values");
+        }
+
+        if (in_array($offset, [self::PROP_PRICE])) {
+            $value = (float)$value;
+        }
+
         if ($this->offsetExists($offset)) {
             $this->data[$offset] = $value;
         }
@@ -144,4 +221,14 @@ abstract class AbstractProduct implements \ArrayAccess, \Countable
     {
         return $this->data;
     }
+
+    /**
+     * @return boolean
+     */
+    abstract public function isTaxable();
+
+    /**
+     * @return boolean
+     */
+    abstract public function hasOwnTax();
 }
