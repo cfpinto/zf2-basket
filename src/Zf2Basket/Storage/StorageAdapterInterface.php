@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: claudiopinto
+ * User: Claudio Pinto
  * Date: 04/08/2016
  * Time: 09:57
  */
@@ -15,8 +15,8 @@ interface StorageAdapterInterface
 
     /**
      * StorageAdapterInterface constructor.
-     * @param $identity the unique identifier
-     * @param $config and array of configurations
+     * @param integer $identity the unique identifier
+     * @param array $config an array of configurations
      */
     function __construct($identity, $config);
 
@@ -32,7 +32,7 @@ interface StorageAdapterInterface
     function pull();
 
     /**
-     * @return this
+     * @return $this
      */
     function delete();
 }

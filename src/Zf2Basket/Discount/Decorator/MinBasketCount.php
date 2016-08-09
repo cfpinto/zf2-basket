@@ -1,15 +1,17 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: claudiopinto
+ * User: Claudio Pinto
  * Date: 08/08/2016
  * Time: 14:53
  */
 
 namespace Zf2Basket\Discount\Decorator;
 
+use Zf2Basket\AbstractBasket;
+use Zf2Basket\Product\AbstractProduct;
 
-class MinBasketCount extends AbstractBasketDecorator
+class MinBasketCount implements DecoratorInterface
 {
 
     private $minCount = 0;
@@ -34,11 +36,14 @@ class MinBasketCount extends AbstractBasketDecorator
     }
 
     /**
+     * @param AbstractProduct $item
+     * @param AbstractBasket  $basket
+     *
      * @return bool
      */
-    function isValid()
+    function isValid(AbstractProduct $item = null, AbstractBasket $basket = null)
     {
-        if ($this->basket instanceof AbstractBasket && $this->basket->count() >= $this->minCount) {
+        if ($basket instanceof AbstractBasket && $basket->getContainer()->count() >= $this->minCount) {
             return true;
         }
 

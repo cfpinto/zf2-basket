@@ -6,22 +6,22 @@
  * Time: 14:16
  */
 
-namespace Zf2Basket\Administration\UnitedKingdom;
+namespace Zf2Basket\Administration\Portugal;
 
 
 use Zf2Basket\Currency\AbstractCurrency;
 
-class Pound extends AbstractCurrency
+class Euro extends AbstractCurrency
 {
-    protected $name = 'Pound';
+    protected $name = 'Euro';
 
-    protected $fractional = 'Pence';
+    protected $fractional = 'Cent';
 
     protected $decimalMark = '.';
 
     protected $thousandsMark = ',';
 
-    protected $symbol = '£';
+    protected $symbol = '€';
 
     protected $decimals = 2;
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: claudiopinto
+ * User: Claudio Pinto
  * Date: 04/08/2016
  * Time: 16:28
  */
@@ -44,9 +44,6 @@ abstract class AbstractProduct implements \ArrayAccess, \Countable
     const PROP_TAX_RATE = 'taxRate';
     const PROP_PRICE_TAX = 'priceTax';
     const PROP_PRICE_NO_TAX = 'priceNoTax';
-    const PROP_DISCOUNT = 'discount';
-    const PROP_DISCOUNT_TAX = 'discountTax';
-    const PROP_DISCOUNT_NO_TAX = 'discountNoTax';
 
     private $data = [
         self::PROP_ID => null,
@@ -69,10 +66,6 @@ abstract class AbstractProduct implements \ArrayAccess, \Countable
     {
         if (!preg_match('#^get(.+?)$#', $name, $matches)) {
             throw new Exception("Invalid method {$name} called.");
-        }
-
-        if ($matches[1] == self::PROP_DISCOUNT) {
-            return $this->getTotalDiscount();
         }
 
         return $this->offsetGet(lcfirst($matches[1]));

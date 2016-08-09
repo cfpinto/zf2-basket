@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: claudiopinto
+ * User: Claudio Pinto
  * Date: 08/08/2016
  * Time: 14:53
  */
@@ -9,7 +9,10 @@
 namespace Zf2Basket\Discount\Decorator;
 
 
-class MinCount extends AbstractProductDecorator
+use Zf2Basket\AbstractBasket;
+use Zf2Basket\Product\AbstractProduct;
+
+class MinCount implements DecoratorInterface
 {
 
     private $minCount;
@@ -30,9 +33,9 @@ class MinCount extends AbstractProductDecorator
         $this->minCount = $minCount;
     }
 
-    function isValid()
+    function isValid(AbstractProduct $item = null, AbstractBasket $basket = null)
     {
-        if ($this->container->count($this->product) >= $this->minCount) {
+        if ($basket->getContainer()->count($item) >= $this->minCount) {
             return true;
         }
 

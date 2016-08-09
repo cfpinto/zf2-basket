@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: claudiopinto
+ * User: Claudio Pinto
  * Date: 08/08/2016
  * Time: 15:42
  */
@@ -9,15 +9,18 @@
 namespace Zf2Basket\Discount;
 
 use Zf2Basket\AbstractBasket;
-use Zf2Basket\Discount\Decorator\DecoratorInterface;
-use Zf2Basket\Discount\Decorator\Regular;
+use Zf2Basket\Discount\AbstractDiscount;
 use Zf2Basket\Product\AbstractProduct;
+use Zf2Basket\Storage\Container;
 
-class Percentage implements DiscountInterface
+class Percentage extends AbstractDiscount
 {
     private $value;
 
-    private $decorators = [];
+    function __construct($value)
+    {
+        $this->setValue($value);
+    }
 
     /**
      * @return mixed
@@ -45,39 +48,34 @@ class Percentage implements DiscountInterface
         return round($item->price - $this->getItemPriceDiscounted($item), 2);
     }
 
-    public function getDecorators()
-    {
-        return $this->decorators;
-    }
-
-    public function addDecorator(DecoratorInterface $decorator)
-    {
-        if (!isset($this->decorators[get_class($decorator)])) {
-            $this->decorators[get_class($decorator)] = $decorator;
-        }
-    }
-
-    public function removeDecorator(DecoratorInterface $decorator)
-    {
-        if (!isset($this->decorators[get_class($decorator)])) {
-            unset($this->decorators[get_class($decorator)]);
-        }
-    }
-
-    public function isValid(AbstractProduct $item, AbstractBasket $basket)
-    {
-        /** @var DecoratorInterface $decorator */
-        foreach ($this->decorators as $decorator) {
-            if (!$decorator->isValid($item, $basket)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     public function getId()
     {
         return $this->getValue() . '%';
+    }
+
+    public function getTotalPriceDiscounted(AbstractBasket $basket)
+    {
+        $value = 0;
+        foreach ($basket->getContainer()->getItems() as $item) {
+            /** @var AbstractProduct $object */
+            $object = $item[Container::KEY_PRODUCT_OBJECT];
+            if ($this->isValid($object, $basket)) {
+                $value += $this->getItemPriceDiscounted($object);
+            }
+        }
+        return $value;
+    }
+
+    public function getTotalPriceDiscount(AbstractBasket $basket)
+    {
+        $value = 0;
+        foreach ($basket->getContainer()->getItems() as $item) {
+            /** @var AbstractProduct $object */
+            $object = $item[Container::KEY_PRODUCT_OBJECT];
+            if ($this->isValid($object, $basket)) {
+                $value += $this->getItemPriceDiscount($object);
+            }
+        }
+        return $value;
     }
 }

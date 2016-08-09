@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: claudiopinto
+ * User: Claudio Pinto
  * Date: 04/08/2016
  * Time: 16:11
  */
@@ -123,7 +123,7 @@ class Basket extends AbstractBasket
     {
         $value = 0.00;
         foreach ($this->getContainer()->getItems() as $item) {
-            $value += $item[Container::KEY_PRODUCT_OBJECT]->price;
+            $value += $item[Container::KEY_PRODUCT_OBJECT]->price * $item[Container::KEY_QUANTITY];
         }
         return $value;
     }
@@ -135,7 +135,7 @@ class Basket extends AbstractBasket
     {
         $value = 0.00;
         foreach ($this->getContainer()->getItems() as $item) {
-            $value += $item[Container::KEY_PRODUCT_OBJECT]->priceTax;
+            $value += $item[Container::KEY_PRODUCT_OBJECT]->priceTax * $item[Container::KEY_QUANTITY];
         }
         return $value;
     }
@@ -145,24 +145,7 @@ class Basket extends AbstractBasket
      */
     function getTotalDiscounted()
     {
-        if (count($this->getContainer()->getDiscounts())) {
-            $value = 0.00;
-            foreach ($this->getContainer()->getItems() as $item) {
-                /** @var AbstractProduct $obj */
-                $obj = $item[Container::KEY_PRODUCT_OBJECT];
-                /** @var DiscountInterface $discount */
-                foreach ($this->getContainer()->getDiscounts() as $discount) {
-                    if ($discount->isValid($obj, $this)) {
-                        $value += $discount->getItemPriceDiscounted($obj);
-                    } else {
-                        $value += $obj->price;
-                    }
-                }
-            }
-            return $value;
-        }
-
-        return $this->getTotal();
+        return $this->getTotal() - $this->getTotalDiscount();
     }
 
     /**
@@ -170,6 +153,13 @@ class Basket extends AbstractBasket
      */
     function getTotalDiscount()
     {
-        return $this->getTotal() - $this->getTotalDiscounted();
+        $value = 0;
+
+        /** @var DiscountInterface $discount */
+        foreach ($this->getContainer()->getDiscounts() as $discount) {
+            $value += $discount->getTotalPriceDiscount($this);
+        }
+
+        return $value;
     }
 }

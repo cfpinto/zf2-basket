@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: claudiopinto
+ * User: Claudio Pinto
  * Date: 08/08/2016
  * Time: 14:53
  */
@@ -14,5 +14,5 @@ use Zf2Basket\Product\AbstractProduct;
 
 interface DecoratorInterface
 {
-    function isValid(AbstractProduct $item, AbstractBasket $basket);
+    function isValid(AbstractProduct $item = null, AbstractBasket $basket = null);
 }

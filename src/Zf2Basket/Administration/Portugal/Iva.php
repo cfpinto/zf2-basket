@@ -6,14 +6,14 @@
  * Time: 11:41
  */
 
-namespace Zf2Basket\Administration\Ireland;
+namespace Zf2Basket\Administration\Portugal;
 
 
 use Zf2Basket\Tax\AbstractTax;
 
-class Vat extends AbstractTax
+class Iva extends AbstractTax
 {
-    protected $name = 'VAT';
+    protected $name = 'IVA';
 
     protected $rate = 23;
 

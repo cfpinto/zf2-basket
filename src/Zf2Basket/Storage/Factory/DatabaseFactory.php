@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: claudiopinto
+ * User: Claudio Pinto
  * Date: 04/08/2016
  * Time: 17:30
  */
@@ -9,7 +9,6 @@
 namespace Zf2Basket\Storage\Factory;
 
 
-use Zf2Basket\Storage\Adapter\Cookie;
 use Zf2Basket\Storage\Adapter\Database;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;

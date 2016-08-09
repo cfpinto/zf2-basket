@@ -6,14 +6,14 @@
  * Time: 11:51
  */
 
-namespace Zf2Basket\Administration\Ireland;
+namespace Zf2Basket\Administration\Portugal;
 
 
 use Zf2Basket\Administration\AdministrationInterface;
 use Zf2Basket\Currency\AbstractCurrency;
 use Zf2Basket\Tax\AbstractTax;
 
-class Ireland implements AdministrationInterface
+class Portugal implements AdministrationInterface
 {
 
     protected $tax;
@@ -28,7 +28,7 @@ class Ireland implements AdministrationInterface
 
     function init()
     {
-        $this->tax = new Vat();
+        $this->tax = new Iva();
         $this->currency = new Euro();
     }
 

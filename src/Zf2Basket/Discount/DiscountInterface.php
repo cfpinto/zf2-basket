@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: claudiopinto
+ * User: Claudio Pinto
  * Date: 04/08/2016
  * Time: 16:29
  */
@@ -17,9 +17,13 @@ interface DiscountInterface
 {
     public function getId();
 
-    public function getItemPriceDiscounted(AbstractProduct $item );
+    public function getItemPriceDiscounted(AbstractProduct $item);
 
-    public function getItemPriceDiscount(AbstractProduct $item );
+    public function getItemPriceDiscount(AbstractProduct $item);
+
+    public function getTotalPriceDiscounted(AbstractBasket $basket);
+
+    public function getTotalPriceDiscount(AbstractBasket $basket);
 
     public function getDecorators();
 
@@ -27,6 +31,6 @@ interface DiscountInterface
 
     public function removeDecorator(DecoratorInterface $decorator);
 
-    public function isValid(AbstractProduct $item, AbstractBasket $basket);
+    public function isValid(AbstractProduct $item = null, AbstractBasket $basket = null);
 
 }

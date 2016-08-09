@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: claudiopinto
+ * User: Claudio Pinto
  * Date: 04/08/2016
  * Time: 11:31
  */
@@ -127,8 +127,10 @@ class Container implements \Serializable, \JsonSerializable
     {
         $items = [];
         foreach ($this->items as $key => $item) {
+            /** @var AbstractProduct $itemObject */
+            $itemObject = $item[self::KEY_PRODUCT_OBJECT];
             $items[$key] = [
-                self::KEY_PRODUCT_ARRAY => $item[self::KEY_PRODUCT_OBJECT]->toArray(),
+                self::KEY_PRODUCT_ARRAY => $itemObject->toArray(),
                 self::KEY_QUANTITY => $item[self::KEY_QUANTITY],
             ];
         }

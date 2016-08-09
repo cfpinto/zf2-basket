@@ -6,7 +6,7 @@
  * Time: 16:41
  */
 
-namespace Zf2Basket\Product;
+namespace Zf2Basket\Discount\Decorator;
 
 
 class Exception extends \Exception
