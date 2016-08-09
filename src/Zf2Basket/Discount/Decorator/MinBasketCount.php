@@ -9,7 +9,7 @@
 namespace Zf2Basket\Discount\Decorator;
 
 use Zf2Basket\AbstractBasket;
-use Zf2Basket\Product\AbstractProduct;
+use Zf2Basket\Product\ProductInterface;
 
 class MinBasketCount implements DecoratorInterface
 {
@@ -36,12 +36,12 @@ class MinBasketCount implements DecoratorInterface
     }
 
     /**
-     * @param AbstractProduct $item
+     * @param ProductInterface $item
      * @param AbstractBasket  $basket
      *
      * @return bool
      */
-    function isValid(AbstractProduct $item = null, AbstractBasket $basket = null)
+    function isValid(ProductInterface $item = null, AbstractBasket $basket = null)
     {
         if ($basket instanceof AbstractBasket && $basket->getContainer()->count() >= $this->minCount) {
             return true;

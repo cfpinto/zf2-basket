@@ -9,32 +9,32 @@
 namespace Zf2Basket\Administration;
 
 
-use Zf2Basket\Currency\AbstractCurrency;
-use Zf2Basket\Tax\AbstractTax;
+use Zf2Basket\Currency\CurrencyInterface;
+use Zf2Basket\Tax\TaxInterface;
 
 interface AdministrationInterface
 {
     /**
-     * @return AbstractTax
+     * @return TaxInterface
      */
     function getTax();
 
     /**
-     * @param AbstractTax $tax
+     * @param TaxInterface $tax
      *
      * @return $this
      */
-    function setTax(AbstractTax $tax);
+    function setTax(TaxInterface $tax);
 
     /**
-     * @return AbstractCurrency
+     * @return CurrencyInterface
      */
     function getCurrency();
 
     /**
-     * @param AbstractCurrency $currency
+     * @param CurrencyInterface $currency
      *
      * @return $this
      */
-    function setCurrency(AbstractCurrency $currency);
+    function setCurrency(CurrencyInterface $currency);
 }

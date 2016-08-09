@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: claudiopinto
+ * User: Claudio Pinto
  * Date: 09/08/2016
  * Time: 13:53
  */
@@ -11,8 +11,7 @@ namespace Zf2Basket\Discount;
 
 use Zf2Basket\AbstractBasket;
 use Zf2Basket\Discount\Decorator\MinBasketValue;
-use Zf2Basket\Discount\Decorator\NonStackable;
-use Zf2Basket\Product\AbstractProduct;
+use Zf2Basket\Product\ProductInterface;
 use Zf2Basket\Product\Exception;
 
 class GetXSpendY extends AbstractDiscount
@@ -38,12 +37,12 @@ class GetXSpendY extends AbstractDiscount
         return sprintf('get%dspend%d', $this->getValue(), $this->getSpend());
     }
 
-    public function getItemPriceDiscounted(AbstractProduct $item)
+    public function getItemPriceDiscounted(ProductInterface $item)
     {
         return $item->price;
     }
 
-    public function getItemPriceDiscount(AbstractProduct $item)
+    public function getItemPriceDiscount(ProductInterface $item)
     {
         return 0;
     }

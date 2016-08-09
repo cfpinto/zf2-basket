@@ -10,8 +10,8 @@ namespace Zf2Basket\Administration\UnitedKingdom;
 
 
 use Zf2Basket\Administration\AdministrationInterface;
-use Zf2Basket\Currency\AbstractCurrency;
-use Zf2Basket\Tax\AbstractTax;
+use Zf2Basket\Currency\CurrencyInterface;
+use Zf2Basket\Tax\TaxInterface;
 
 class UnitedKingdom implements AdministrationInterface
 {
@@ -33,21 +33,21 @@ class UnitedKingdom implements AdministrationInterface
     }
 
     /**
-     * @return AbstractTax
+     * @return TaxInterface
      */
     function getTax()
     {
         return $this->tax;
     }
 
-    function setTax(AbstractTax $tax)
+    function setTax(TaxInterface $tax)
     {
         $this->tax = $tax;
         return $this;
     }
 
     /**
-     * @return AbstractCurrency
+     * @return CurrencyInterface
      */
     function getCurrency()
     {
@@ -55,11 +55,11 @@ class UnitedKingdom implements AdministrationInterface
     }
 
     /**
-     * @param AbstractCurrency $currency
+     * @param CurrencyInterface $currency
      *
      * @return $this
      */
-    function setCurrency(AbstractCurrency $currency)
+    function setCurrency(CurrencyInterface $currency)
     {
         $this->currency = $currency;
         return $this;

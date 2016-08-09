@@ -11,15 +11,15 @@ namespace Zf2Basket\Discount;
 
 use Zf2Basket\AbstractBasket;
 use Zf2Basket\Discount\Decorator\DecoratorInterface;
-use Zf2Basket\Product\AbstractProduct;
+use Zf2Basket\Product\ProductInterface;
 
 interface DiscountInterface
 {
     public function getId();
 
-    public function getItemPriceDiscounted(AbstractProduct $item);
+    public function getItemPriceDiscounted(ProductInterface $item);
 
-    public function getItemPriceDiscount(AbstractProduct $item);
+    public function getItemPriceDiscount(ProductInterface $item);
 
     public function getTotalPriceDiscounted(AbstractBasket $basket);
 
@@ -31,6 +31,6 @@ interface DiscountInterface
 
     public function removeDecorator(DecoratorInterface $decorator);
 
-    public function isValid(AbstractProduct $item = null, AbstractBasket $basket = null);
+    public function isValid(ProductInterface $item = null, AbstractBasket $basket = null);
 
 }

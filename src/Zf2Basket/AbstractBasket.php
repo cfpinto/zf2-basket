@@ -11,7 +11,7 @@ namespace Zf2Basket;
 
 use Zf2Basket\Administration\AdministrationInterface;
 use Zf2Basket\Discount\DiscountInterface;
-use Zf2Basket\Product\AbstractProduct;
+use Zf2Basket\Product\ProductInterface;
 use Zf2Basket\Storage\Container;
 use Zf2Basket\Storage\StorageAdapterInterface;
 
@@ -119,27 +119,27 @@ abstract class AbstractBasket
     }
 
     /**
-     * @param AbstractProduct $item
+     * @param ProductInterface $item
+     * @param int                              $quantity
+     *
+     * @return $this
+     */
+    abstract function addItem(ProductInterface $item, $quantity = 1);
+
+    /**
+     * @param ProductInterface $item
      * @param int             $quantity
      *
      * @return $this
      */
-    abstract function addItem(AbstractProduct $item, $quantity = 1);
+    abstract function removeItem(ProductInterface $item, $quantity = 1);
 
     /**
-     * @param AbstractProduct $item
-     * @param int             $quantity
+     * @param ProductInterface $item
      *
      * @return $this
      */
-    abstract function removeItem(AbstractProduct $item, $quantity = 1);
-
-    /**
-     * @param AbstractProduct $item
-     *
-     * @return $this
-     */
-    abstract function clearItem(AbstractProduct $item);
+    abstract function clearItem(ProductInterface $item);
 
     /**
      * @return $this

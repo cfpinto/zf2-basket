@@ -9,10 +9,11 @@
 namespace Zf2Basket\Product;
 
 
-use Zf2Basket\Tax\AbstractTax;
+use Zf2Basket\Tax\TaxInterface;
 
 /**
  * Class AbstractProduct
+ * 
  * @package Zf2Basket\Product
  * @method integer getId()
  * @method string getName()
@@ -33,7 +34,7 @@ use Zf2Basket\Tax\AbstractTax;
  * @property float $priceNoTax;
  * @property float $priceTax;
  */
-abstract class AbstractProduct implements \ArrayAccess, \Countable
+abstract class AbstractProduct implements ProductInterface
 {
     const PROP_ID = 'id';
     const PROP_NAME = 'name';
@@ -58,7 +59,7 @@ abstract class AbstractProduct implements \ArrayAccess, \Countable
     ];
 
     /**
-     * @var AbstractTax
+     * @var TaxInterface
      */
     private $tax;
 
@@ -82,7 +83,7 @@ abstract class AbstractProduct implements \ArrayAccess, \Countable
     }
 
     /**
-     * @return AbstractTax
+     * @return TaxInterface
      */
     public function getTax()
     {
@@ -90,11 +91,11 @@ abstract class AbstractProduct implements \ArrayAccess, \Countable
     }
 
     /**
-     * @param AbstractTax $tax
+     * @param TaxInterface $tax
      *
      * @return $this
      */
-    public function setTax(AbstractTax $tax)
+    public function setTax(TaxInterface $tax)
     {
         $this->tax = $tax;
         $this->data[self::PROP_TAX_RATE] = $tax->getRate();

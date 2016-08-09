@@ -10,7 +10,7 @@ namespace Zf2Basket\Storage;
 
 
 use Zf2Basket\Discount\DiscountInterface;
-use Zf2Basket\Product\AbstractProduct;
+use Zf2Basket\Product\ProductInterface;
 
 class Container implements \Serializable, \JsonSerializable
 {
@@ -67,12 +67,12 @@ class Container implements \Serializable, \JsonSerializable
     }
 
     /**
-     * @param AbstractProduct $product
+     * @param ProductInterface $product
      * @param int             $quantity
      *
      * @return $this
      */
-    function increment(AbstractProduct $product, $quantity = 1)
+    function increment(ProductInterface $product, $quantity = 1)
     {
         if (!isset($this->items[$product->getId()])) {
             $this->items[$product->getId()] = [
@@ -127,7 +127,7 @@ class Container implements \Serializable, \JsonSerializable
     {
         $items = [];
         foreach ($this->items as $key => $item) {
-            /** @var AbstractProduct $itemObject */
+            /** @var ProductInterface $itemObject */
             $itemObject = $item[self::KEY_PRODUCT_OBJECT];
             $items[$key] = [
                 self::KEY_PRODUCT_ARRAY => $itemObject->toArray(),
@@ -139,11 +139,11 @@ class Container implements \Serializable, \JsonSerializable
     }
 
     /**
-     * @param AbstractProduct|null $product
+     * @param ProductInterface|null $product
      *
      * @return int
      */
-    function count(AbstractProduct $product = null)
+    function count(ProductInterface $product = null)
     {
         if (null === $product) {
             $count = 0;

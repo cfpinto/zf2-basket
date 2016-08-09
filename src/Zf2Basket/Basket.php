@@ -10,18 +10,18 @@ namespace Zf2Basket;
 
 use Zf2Basket\Administration\AdministrationInterface;
 use Zf2Basket\Discount\DiscountInterface;
-use Zf2Basket\Product\AbstractProduct;
+use Zf2Basket\Product\ProductInterface;
 use Zf2Basket\Storage\Container;
 
 class Basket extends AbstractBasket
 {
     /**
-     * @param AbstractProduct $item
-     * @param int             $quantity
+     * @param ProductInterface $item
+     * @param int                              $quantity
      *
      * @return $this
      */
-    function addItem(AbstractProduct $item, $quantity = 1)
+    function addItem(ProductInterface $item, $quantity = 1)
     {
         if ($item->isTaxable() && !$item->hasOwnTax()) {
             $item->setTax($this->getAdministration()->getTax());
@@ -32,12 +32,12 @@ class Basket extends AbstractBasket
     }
 
     /**
-     * @param AbstractProduct $item
+     * @param ProductInterface $item
      * @param int             $quantity
      *
      * @return $this
      */
-    function removeItem(AbstractProduct $item, $quantity = 1)
+    function removeItem(ProductInterface $item, $quantity = 1)
     {
         $this->getContainer()->increment($item, abs($quantity) * -1);
         $this->write();
@@ -45,11 +45,11 @@ class Basket extends AbstractBasket
     }
 
     /**
-     * @param AbstractProduct $item
+     * @param ProductInterface $item
      *
      * @return $this
      */
-    function clearItem(AbstractProduct $item)
+    function clearItem(ProductInterface $item)
     {
         return $this->removeItem($item, $this->getContainer()->count($item));
     }

@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: claudiopinto
+ * User: Claudio Pinto
  * Date: 09/08/2016
  * Time: 14:04
  */
@@ -11,7 +11,7 @@ namespace Zf2Basket\Discount;
 
 use Zf2Basket\AbstractBasket;
 use Zf2Basket\Discount\Decorator\DecoratorInterface;
-use Zf2Basket\Product\AbstractProduct;
+use Zf2Basket\Product\ProductInterface;
 
 abstract class AbstractDiscount implements DiscountInterface
 {
@@ -37,7 +37,7 @@ abstract class AbstractDiscount implements DiscountInterface
         }
     }
 
-    public function isValid(AbstractProduct $item = null, AbstractBasket $basket = null)
+    public function isValid(ProductInterface $item = null, AbstractBasket $basket = null)
     {
         /** @var DecoratorInterface $decorator */
         foreach ($this->decorators as $decorator) {

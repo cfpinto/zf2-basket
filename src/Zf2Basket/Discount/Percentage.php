@@ -9,8 +9,7 @@
 namespace Zf2Basket\Discount;
 
 use Zf2Basket\AbstractBasket;
-use Zf2Basket\Discount\AbstractDiscount;
-use Zf2Basket\Product\AbstractProduct;
+use Zf2Basket\Product\ProductInterface;
 use Zf2Basket\Storage\Container;
 
 class Percentage extends AbstractDiscount
@@ -38,12 +37,12 @@ class Percentage extends AbstractDiscount
         $this->value = $value;
     }
 
-    public function getItemPriceDiscounted(AbstractProduct $item)
+    public function getItemPriceDiscounted(ProductInterface $item)
     {
         return round($item->price * (100 - $this->getValue()) / 100, 2);
     }
 
-    public function getItemPriceDiscount(AbstractProduct $item)
+    public function getItemPriceDiscount(ProductInterface $item)
     {
         return round($item->price - $this->getItemPriceDiscounted($item), 2);
     }
@@ -57,7 +56,7 @@ class Percentage extends AbstractDiscount
     {
         $value = 0;
         foreach ($basket->getContainer()->getItems() as $item) {
-            /** @var AbstractProduct $object */
+            /** @var ProductInterface $object */
             $object = $item[Container::KEY_PRODUCT_OBJECT];
             if ($this->isValid($object, $basket)) {
                 $value += ($this->getItemPriceDiscounted($object) * $item[Container::KEY_QUANTITY]);
@@ -70,7 +69,7 @@ class Percentage extends AbstractDiscount
     {
         $value = 0;
         foreach ($basket->getContainer()->getItems() as $item) {
-            /** @var AbstractProduct $object */
+            /** @var ProductInterface $object */
             $object = $item[Container::KEY_PRODUCT_OBJECT];
             if ($this->isValid($object, $basket)) {
                 $value += ($this->getItemPriceDiscount($object) * $item[Container::KEY_QUANTITY]);

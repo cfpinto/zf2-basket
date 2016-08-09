@@ -9,7 +9,7 @@
 namespace Zf2Basket\Tax;
 
 
-abstract class AbstractTax
+abstract class AbstractTax implements TaxInterface
 {
     protected $rate = 0;
 

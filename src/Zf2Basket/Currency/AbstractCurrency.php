@@ -9,7 +9,7 @@
 namespace Zf2Basket\Currency;
 
 
-abstract class AbstractCurrency
+abstract class AbstractCurrency implements CurrencyInterface
 {
     protected $name;
 
