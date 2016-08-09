@@ -60,7 +60,7 @@ class Percentage extends AbstractDiscount
             /** @var AbstractProduct $object */
             $object = $item[Container::KEY_PRODUCT_OBJECT];
             if ($this->isValid($object, $basket)) {
-                $value += $this->getItemPriceDiscounted($object);
+                $value += ($this->getItemPriceDiscounted($object) * $item[Container::KEY_QUANTITY]);
             }
         }
         return $value;
@@ -73,7 +73,7 @@ class Percentage extends AbstractDiscount
             /** @var AbstractProduct $object */
             $object = $item[Container::KEY_PRODUCT_OBJECT];
             if ($this->isValid($object, $basket)) {
-                $value += $this->getItemPriceDiscount($object);
+                $value += ($this->getItemPriceDiscount($object) * $item[Container::KEY_QUANTITY]);
             }
         }
         return $value;

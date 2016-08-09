@@ -11,6 +11,7 @@ namespace Zf2Basket\Discount;
 
 use Zf2Basket\AbstractBasket;
 use Zf2Basket\Discount\Decorator\MinBasketValue;
+use Zf2Basket\Discount\Decorator\NonStackable;
 use Zf2Basket\Product\AbstractProduct;
 use Zf2Basket\Product\Exception;
 
