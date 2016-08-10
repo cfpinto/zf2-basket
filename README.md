@@ -6,7 +6,7 @@ ZF2 Basket is a Module build for Zend Framework 2. Ultimately it cam be used as 
 How to install
 ==============
 ### Using composer and packagist:
-```Composer install cfpinto/zf2-basket```
+```composer require cfpinto/zf2-basket```
 
 How to use
 ==========
