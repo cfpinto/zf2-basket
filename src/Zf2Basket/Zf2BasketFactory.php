@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Claudio Pinto
+ * User: claudiopinto
  * Date: 04/08/2016
  * Time: 17:29
  */
@@ -26,8 +26,9 @@ class Zf2BasketFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $basket = new Zf2Basket($serviceLocator->get('Zf2Basket\Storage\Adapter'), new Container());
-        $basket->setServiceLocator($serviceLocator);
-        $basket->setEventManager($serviceLocator->get('EventManager'));
+        $basket->setServiceLocator($serviceLocator)
+            ->setEventManager($serviceLocator->get('EventManager'))
+            ->init();
         return $basket;
     }
 }

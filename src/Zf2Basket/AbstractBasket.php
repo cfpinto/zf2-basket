@@ -197,4 +197,9 @@ abstract class AbstractBasket
      */
     abstract function getTotalDiscount();
 
+    /**
+     * @return array
+     */
+    abstract function toArray();
+
 }

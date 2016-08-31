@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Claudio Pinto
+ * User: claudiopinto
  * Date: 05/08/2016
  * Time: 12:31
  */
@@ -14,9 +14,6 @@ class BasketEvent extends Event
 {
 
     const EVENT_INIT = 'init';
-    const EVENT_READ = 'read';
-    const EVENT_WRITE = 'write';
-    const EVENT_DELETE = 'delete';
     const EVENT_ADD_ITEM = 'addItem';
     const EVENT_REMOVE_ITEM = 'removeItem';
     const EVENT_CLEAR_ITEM = 'clearItem';

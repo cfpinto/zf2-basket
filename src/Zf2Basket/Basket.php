@@ -162,4 +162,9 @@ class Basket extends AbstractBasket
 
         return $value;
     }
+
+    public function toArray()
+    {
+        // TODO: Implement toArray() method.
+    }
 }
