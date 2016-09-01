@@ -10,6 +10,7 @@ namespace Zf2Basket;
 
 use Zf2Basket\Administration\AdministrationInterface;
 use Zf2Basket\Discount\DiscountInterface;
+use Zf2Basket\Product\Exception;
 use Zf2Basket\Product\ProductInterface;
 use Zf2Basket\Storage\Container;
 
@@ -17,13 +18,17 @@ class Basket extends AbstractBasket
 {
     /**
      * @param ProductInterface $item
-     * @param int                              $quantity
+     * @param int              $quantity
      *
      * @return $this
+     * @throws Exception
      */
     function addItem(ProductInterface $item, $quantity = 1)
     {
         if ($item->isTaxable() && !$item->hasOwnTax()) {
+            if (!$this->getAdministration()) {
+                throw new Exception("Products that are taxable and don't have own tax require an administration to be setup. please add an administration to the basket prior to adding a product.");
+            }
             $item->setTax($this->getAdministration()->getTax());
         }
         $this->getContainer()->increment($item, abs($quantity));
@@ -33,7 +38,7 @@ class Basket extends AbstractBasket
 
     /**
      * @param ProductInterface $item
-     * @param int             $quantity
+     * @param int              $quantity
      *
      * @return $this
      */
@@ -165,6 +170,22 @@ class Basket extends AbstractBasket
 
     public function toArray()
     {
-        // TODO: Implement toArray() method.
+        $discounts = [];
+        /** @var DiscountInterface $discount */
+        foreach ($this->getContainer()->getDiscounts() as $discount) {
+            $discounts[] = $discount->toArray();
+        }
+        $items = [];
+        /** @var ProductInterface $item */
+        foreach ($this->getContainer()->getItems() as $item) {
+            $items[] = array_merge($item[Container::KEY_PRODUCT_OBJECT]->toArray(), ['quantity' => $item[Container::KEY_QUANTITY]]);
+        }
+        return [
+            'items' => $items,
+            'discounts' => $discounts,
+            'total' => $this->getTotal(),
+            'totalDiscounted' => $this->getTotalDiscounted(),
+            'totalDiscount' => $this->getTotalDiscount(),
+        ];
     }
 }

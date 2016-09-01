@@ -13,26 +13,17 @@ use Zf2Basket\Tax\TaxInterface;
 
 /**
  * Class AbstractProduct
- * 
+ *
  * @package Zf2Basket\Product
- * @method integer getId()
- * @method string getName()
- * @method string getBrand()
- * @method string getCategory()
- * @method string getVariant()
- * @method float getPrice()
- * @method integer getTaxRate()
- * @method float getPriceTax()
- * @method float getPriceNoTax()
- * @property integer $id;
- * @property string $name;
- * @property string $brand;
- * @property string $category;
- * @property string $variant;
- * @property float $price;
- * @property int $taxRate;
- * @property float $priceNoTax;
- * @property float $priceTax;
+ * @property integer $id        ;
+ * @property string  $name      ;
+ * @property string  $brand     ;
+ * @property string  $category  ;
+ * @property string  $variant   ;
+ * @property float   $price     ;
+ * @property int     $taxRate   ;
+ * @property float   $priceNoTax;
+ * @property float   $priceTax  ;
  */
 abstract class AbstractProduct implements ProductInterface
 {
@@ -63,13 +54,49 @@ abstract class AbstractProduct implements ProductInterface
      */
     private $tax;
 
-    public function __call($name, $arguments)
+    function getId()
     {
-        if (!preg_match('#^get(.+?)$#', $name, $matches)) {
-            throw new Exception("Invalid method {$name} called.");
-        }
+        return $this->offsetGet(self::PROP_ID);
+    }
 
-        return $this->offsetGet(lcfirst($matches[1]));
+    function getName()
+    {
+        return $this->offsetGet(self::PROP_NAME);
+    }
+
+    function getBrand()
+    {
+        return $this->offsetGet(self::PROP_BRAND);
+    }
+
+    function getCategory()
+    {
+        return $this->offsetGet(self::PROP_CATEGORY);
+    }
+
+    function getVariant()
+    {
+        return $this->offsetGet(self::PROP_VARIANT);
+    }
+
+    function getPrice()
+    {
+        return $this->offsetGet(self::PROP_PRICE);
+    }
+
+    function getTaxRate()
+    {
+        return $this->offsetGet(self::PROP_TAX_RATE);
+    }
+
+    function getPriceTax()
+    {
+        return $this->offsetGet(self::PROP_PRICE_TAX);
+    }
+
+    function getPriceNoTax()
+    {
+        return $this->offsetGet(self::PROP_PRICE_NO_TAX);
     }
 
     public function __get($offset)
@@ -156,6 +183,7 @@ abstract class AbstractProduct implements ProductInterface
      * @param mixed $value  <p>
      *                      The value to set.
      *                      </p>
+     *
      * @throws Exception
      *
      * @return void

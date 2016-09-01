@@ -1,6 +1,6 @@
 <?php
 /**
- * @author Remi THOMAS 
+ * @author Claudio Pinto
  */
 return array(
     'Zf2Basket\Module' => __DIR__ . '/Module.php',

@@ -33,4 +33,12 @@ interface DiscountInterface
 
     public function isValid(ProductInterface $item = null, AbstractBasket $basket = null);
 
+    public function getName();
+
+    public function getDescription();
+
+    public function getType();
+
+    public function toArray();
+
 }

@@ -112,4 +112,14 @@ class GetXSpendY extends AbstractDiscount
         $this->applied = 0;
         return $this;
     }
+
+    public function getName()
+    {
+        return sprintf('Get %s if you spend %s', $this->value, $this->spend);
+    }
+
+    public function getDescription()
+    {
+        return sprintf('Get %s%% discount when you spend £%s', $this->value, $this->spend);
+    }
 }

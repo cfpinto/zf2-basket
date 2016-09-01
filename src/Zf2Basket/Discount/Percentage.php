@@ -77,4 +77,14 @@ class Percentage extends AbstractDiscount
         }
         return $value;
     }
+
+    public function getName()
+    {
+        return sprintf('%d%% off', $this->value);
+    }
+
+    public function getDescription()
+    {
+        return sprintf('Get %d%% discount on all products', $this->value);
+    }
 }

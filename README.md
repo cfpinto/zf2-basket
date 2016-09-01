@@ -274,3 +274,33 @@ public function indexAction()
 }
 
 ```
+
+Hooks
+-----
+The following hooks are available
+- init
+- addItem
+- removeItem
+- clearItem
+- clearItems
+- addDiscount
+- removeDiscount
+- clearDiscounts
+
+### Module.php
+```php
+class Module 
+{
+    function onBootstrap() {
+        /** @var \Zend\EventManager\EventManager $eventManager */
+        $eventManager = $this->getEventManager($e);
+        $eventManager->getSharedManager()->attach(\Zf2Basket\Zf2Basket::class, \Zf2Basket\BasketEvent::EVENT_INIT, array($this, 'addDiscounts'));
+    }
+    
+    function addDiscounts(MvcEvent $E) {
+        /** @var \Zf2Basket\Zf2Basket $basket */
+        $basket = $e->getTarget();
+        //Do something
+    }
+...
+```
