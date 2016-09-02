@@ -12,7 +12,7 @@ namespace Zf2Basket\Discount\Decorator;
 use Zf2Basket\AbstractBasket;
 use Zf2Basket\Product\ProductInterface;
 
-class MinBasketValue implements DecoratorInterface
+class MinBasketValue extends AbstractDecorator
 {
 
     private $minValue = 0;

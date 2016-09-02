@@ -12,7 +12,7 @@ namespace Zf2Basket\Discount\Decorator;
 use Zf2Basket\AbstractBasket;
 use Zf2Basket\Product\ProductInterface;
 
-class NonStackable implements DecoratorInterface
+class NonStackable extends AbstractDecorator
 {
     function isValid(ProductInterface $item = null, AbstractBasket $basket = null)
     {

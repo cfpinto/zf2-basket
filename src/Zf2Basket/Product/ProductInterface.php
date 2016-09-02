@@ -36,6 +36,11 @@ interface ProductInterface extends \ArrayAccess, \Countable
     /**
      * @return string
      */
+    public function getCategoryId();
+
+    /**
+     * @return string
+     */
     public function getVariant();
 
     /**

@@ -15,4 +15,8 @@ use Zf2Basket\Product\ProductInterface;
 interface DecoratorInterface
 {
     function isValid(ProductInterface $item = null, AbstractBasket $basket = null);
+
+    function getError();
+
+    function setError($error);
 }

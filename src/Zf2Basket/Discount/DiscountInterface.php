@@ -17,9 +17,9 @@ interface DiscountInterface
 {
     public function getId();
 
-    public function getItemPriceDiscounted(ProductInterface $item);
+    public function getItemPriceDiscounted(ProductInterface $item, AbstractBasket $basket);
 
-    public function getItemPriceDiscount(ProductInterface $item);
+    public function getItemPriceDiscount(ProductInterface $item, AbstractBasket $basket);
 
     public function getTotalPriceDiscounted(AbstractBasket $basket);
 
@@ -40,5 +40,7 @@ interface DiscountInterface
     public function getType();
 
     public function toArray();
+
+    public function getErrors();
 
 }

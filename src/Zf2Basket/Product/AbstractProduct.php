@@ -31,6 +31,7 @@ abstract class AbstractProduct implements ProductInterface
     const PROP_NAME = 'name';
     const PROP_BRAND = 'brand';
     const PROP_CATEGORY = 'category';
+    const PROP_CATEGORY_ID = 'category_id';
     const PROP_VARIANT = 'variant';
     const PROP_PRICE = 'price';
     const PROP_TAX_RATE = 'taxRate';
@@ -42,6 +43,7 @@ abstract class AbstractProduct implements ProductInterface
         self::PROP_NAME => null,
         self::PROP_BRAND => null,
         self::PROP_CATEGORY => null,
+        self::PROP_CATEGORY_ID => null,
         self::PROP_VARIANT => null,
         self::PROP_PRICE => null,
         self::PROP_TAX_RATE => null,
@@ -72,6 +74,11 @@ abstract class AbstractProduct implements ProductInterface
     function getCategory()
     {
         return $this->offsetGet(self::PROP_CATEGORY);
+    }
+
+    function getCategoryId()
+    {
+        return $this->offsetGet(self::PROP_CATEGORY_ID);
     }
 
     function getVariant()

@@ -37,12 +37,12 @@ class GetXSpendY extends AbstractDiscount
         return sprintf('get%dspend%d', $this->getValue(), $this->getSpend());
     }
 
-    public function getItemPriceDiscounted(ProductInterface $item)
+    public function getItemPriceDiscounted(ProductInterface $item, AbstractBasket $basket = null)
     {
         return $item->price;
     }
 
-    public function getItemPriceDiscount(ProductInterface $item)
+    public function getItemPriceDiscount(ProductInterface $item, AbstractBasket $basket = null)
     {
         return 0;
     }
