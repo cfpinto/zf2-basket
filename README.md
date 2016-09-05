@@ -1,7 +1,7 @@
 ZF2 Basket
 ==========
 
-ZF2 Basket is a Module build for Zend Framework 2. Ultimately it can be used as a stand alone library if you don't need the ZF2 module features
+ZF2 Basket is a module build for Zend Framework 2. Ultimately it can be used as a stand alone library if you don't need the ZF2 module features
  
 How to install
 ==============
