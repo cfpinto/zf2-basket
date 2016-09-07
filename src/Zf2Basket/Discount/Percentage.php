@@ -44,7 +44,7 @@ class Percentage extends AbstractDiscount
 
     public function getItemPriceDiscount(ProductInterface $item, AbstractBasket $basket = null)
     {
-        return round($item->price * $this->getValue() / 100, 2);
+        return round($item->getPrice() * $this->getValue() / 100, 2);
     }
 
     public function getId()

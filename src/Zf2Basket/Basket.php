@@ -128,7 +128,7 @@ class Basket extends AbstractBasket
     {
         $value = 0.00;
         foreach ($this->getContainer()->getItems() as $item) {
-            $value += $item[Container::KEY_PRODUCT_OBJECT]->price * $item[Container::KEY_QUANTITY];
+            $value += $item[Container::KEY_PRODUCT_OBJECT]->getPrice() * $item[Container::KEY_QUANTITY];
         }
         return $value;
     }
@@ -140,7 +140,7 @@ class Basket extends AbstractBasket
     {
         $value = 0.00;
         foreach ($this->getContainer()->getItems() as $item) {
-            $value += $item[Container::KEY_PRODUCT_OBJECT]->priceTax * $item[Container::KEY_QUANTITY];
+            $value += $item[Container::KEY_PRODUCT_OBJECT]->getPriceTax() * $item[Container::KEY_QUANTITY];
         }
         return $value;
     }

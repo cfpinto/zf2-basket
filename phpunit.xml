@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit colors="true">
+    <testsuites>
+        <testsuite name="Zf2 Basket Test Suite">
+            <directory suffix=".php">src/Zf2Basket/Test</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

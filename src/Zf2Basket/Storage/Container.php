@@ -111,7 +111,7 @@ class Container implements \Serializable, \JsonSerializable
      */
     function removeDiscount(DiscountInterface $discount)
     {
-        if (!isset($this->discounts[$discount->getId()])) {
+        if (isset($this->discounts[$discount->getId()])) {
             unset($this->discounts[$discount->getId()]);
         }
 
