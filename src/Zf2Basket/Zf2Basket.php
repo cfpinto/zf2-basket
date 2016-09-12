@@ -20,6 +20,8 @@ class Zf2Basket extends Basket implements EventManagerAwareInterface, ServiceLoc
 {
     use ServiceLocatorAwareTrait;
 
+    const alias = 'Basket';
+
     /**
      * @var EventManagerInterface
      */

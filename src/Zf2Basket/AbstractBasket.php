@@ -93,6 +93,16 @@ abstract class AbstractBasket
     }
 
     /**
+     * @param ProductInterface|null $productInterface
+     *
+     * @return int
+     */
+    public function count(ProductInterface $productInterface = null)
+    {
+        return $this->getContainer()->count($productInterface);
+    }
+
+    /**
      *
      */
     final protected function write()

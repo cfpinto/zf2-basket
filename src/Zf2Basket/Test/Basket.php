@@ -51,17 +51,17 @@ class Basket extends \PHPUnit_Framework_TestCase
 
         $basket->addItem($product1, 2);
         $basket->addItem($product2, 1);
-        $this->assertEquals(2, $basket->getContainer()->count($product1));
+        $this->assertEquals(2, $basket->count($product1));
 
         $basket->removeItem($product1);
-        $this->assertEquals(1, $basket->getContainer()->count($product1));
+        $this->assertEquals(1, $basket->count($product1));
 
         $basket->clearItem($product1);
-        $this->assertEquals(0, $basket->getContainer()->count($product1));
+        $this->assertEquals(0, $basket->count($product1));
 
         $basket->clearItems();
-        $this->assertEquals(0, $basket->getContainer()->count($product1));
-        $this->assertEquals(0, $basket->getContainer()->count($product2));
+        $this->assertEquals(0, $basket->count($product1));
+        $this->assertEquals(0, $basket->count($product2));
     }
 
     function testAddRemoveClearDiscounts()
