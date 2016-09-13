@@ -29,6 +29,6 @@ class ViewHelper extends AbstractHelper
 
     function __call($name, $arguments)
     {
-        return call_user_func_array([$this->auth, $name], $arguments);
+        return call_user_func_array([$this->basket, $name], $arguments);
     }
 }

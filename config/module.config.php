@@ -9,6 +9,16 @@ return array(
             \Zf2Basket\Zf2Basket::alias => \Zf2Basket\Zf2Basket::class
         ),
     ),
+    'controller_plugins' => array(
+        'invokables' => array(
+            \Zf2Basket\Zf2Basket::alias => \Zf2Basket\ControllerPlugin::class,
+        ),
+    ),
+    'view_helpers' => array(
+        'factories' => array(
+            \Zf2Basket\Zf2Basket::alias => \Zf2Basket\ViewHelperFactory::class,
+        ),
+    ),
     'storage_adapter' => array(
         'database' => array(
             'driver' => 'Pdo_Mysql',
